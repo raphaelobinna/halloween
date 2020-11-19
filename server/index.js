@@ -5,7 +5,7 @@ const cors = require('cors');
 const connectDB = require('./models/db')
 const bodyParser = require('body-parser');
 const { errorHandler, notFound } = require('./handlers');
-const routes = require('./routes')
+const routes = require('./routes') 
 
 const app = express();
 
@@ -18,11 +18,10 @@ app.use('/uploads',express.static('uploads'))
 
 const port = process.env.PORT || 8080
 
-app.get('/', (req, res) => res.json({hello: 'world'}));
 app.use('/api/auth', routes.auth);
 app.use('/api/poll', routes.poll);
 
-app.use(notFound);
+//app.use(notFound);
 
 app.use(errorHandler);
 
@@ -32,7 +31,6 @@ console.log(process.env.NODE_ENV);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
-
     // Set static folder   
     // All the javascript and css files will be read and served from this folder
     app.use(express.static("client/build"));
@@ -42,5 +40,4 @@ if (process.env.NODE_ENV === "production") {
       res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
     });
   }
-
 app.listen(port, console.log(`server started on port ${port}`))
