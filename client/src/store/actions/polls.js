@@ -17,7 +17,6 @@ export const getPolls = () => {
         try {
             const polls = await api.call('get', 'poll')
             if(polls){
-                console.log('the poll is', polls)
             dispatch(setPolls(polls));
             dispatch(removeError())
             }else {

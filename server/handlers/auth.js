@@ -10,7 +10,7 @@ exports.register = async (req, res, next) => {
 
          //Generate json web token
          const maxAge = 1 * 60 * 60
-         const token = jwt.sign({id, username}, process.env.SECRET, { expiresIn: maxAge })
+         const token = jwt.sign({id, username}, `${process.env.SECRET}`, { expiresIn: maxAge })
          res.status(201).json({
              id, 
              username, 
@@ -34,7 +34,7 @@ exports.login =  async (req, res, next) => {
         if(valid){
             //Generate json web token
             const maxAge = 1 * 60 * 60
-            const token = jwt.sign({id, username}, process.env.SECRET, { expiresIn: maxAge })
+            const token = jwt.sign({id, username}, `${process.env.SECRET}`, { expiresIn: maxAge })
 
             res.json({
                 id,
