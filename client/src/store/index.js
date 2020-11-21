@@ -7,11 +7,17 @@ const DEFAULT_STATE = {
     error: {message: null}
 }
 
+let devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+
+if (process.env.NODE_ENV === 'production') {
+    devTools = a => a;
+}
+
 export const store = createStore(
     rootReducer, 
     DEFAULT_STATE,
     compose(
         applyMiddleware(thunk),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        devTools
     )
     );
