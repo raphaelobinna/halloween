@@ -35,17 +35,15 @@ exports.usersPolls = async (req, res, next) => {
 //save user image
 exports.saveImage = async (req, res, next) => {
     try {
-       
+
+        console.log('req.file is ' + req.file)
+        
+        console.log(req.body, req.decoded)
 
         const { id } = req.decoded;
-
+        
         const user = await User.findById(id)
-
-        console.log(id)
-
         console.log(user)
-
-        console.log(req.file)
 
         const image = req.file.path
 

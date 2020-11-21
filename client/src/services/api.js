@@ -10,7 +10,7 @@ let appURI = null
 
 const host = `${appURI}/api`;
 
-export const setToken = token => {
+ const setToken = token => {
     if(token){
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     } else {
@@ -18,9 +18,11 @@ export const setToken = token => {
     }
 }; 
 
-export const call = async (method, path, data) => {
+ const call = async (method, path, data) => {
     const response = await axios[method](`${host}/${path}`, data)
     return response.data
 };
+
+const test2 = {call, setToken}
  
-export default {call, setToken};
+export default test2;

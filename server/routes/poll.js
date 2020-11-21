@@ -35,10 +35,10 @@ router.route('/')//show everything
         .post(auth, handle.createPoll);
 
 router.route('/upload')
-        .post(auth,  upload.single('pollImage'), handle.saveImage)
+        .post(auth, upload.single('pollImage'), handle.saveImage)
 
 router.get('/user', auth, handle.usersPolls)
-
+ 
  router.route('/:id')
         .get(handle.getPoll)
         .post(auth, handle.vote)

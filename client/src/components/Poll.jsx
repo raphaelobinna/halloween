@@ -64,16 +64,16 @@ const Poll = ({poll, vote}) => {
             //picture display configuration
             let heroPic = DefaultUserPic;
            
-            if((total > totalb), (total > totalc), ( total > totald)){
+            if((total > totalb) || (total > totalc) || ( total > totald)){
                 heroPic = `${appURI}/uploads/DeadPool.JPG`
             } 
-            if((totalb > total), (totalb > totalc), (totalb > totald)) {
+            if((totalb > total) || (totalb > totalc) || (totalb > totald)) {
                 heroPic = `${appURI}/uploads/Hulk.JPG`
             }
-            if((totalc > total), (totalc > totalb), (totalc > totald)) {
+            if((totalc > total) || (totalc > totalb) || (totalc > totald)) {
                 heroPic = `${appURI}/uploads/strange.JPG`
             } 
-            if((totald > total), (totald > totalb), (totald > totalc) ){
+            if((totald > total) || (totald > totalb) || (totald > totalc) ){
                 heroPic = `${appURI}/uploads/Iron.JPG`
            }
          //user image logic
