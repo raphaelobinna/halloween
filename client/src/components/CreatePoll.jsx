@@ -67,9 +67,7 @@ class CreatePoll extends Component {
     formData.append("pollImage",this.state.uploadedFile);
     //update-profile
     axios.post(`${appURI}/api/poll/upload/`,(formData),{
-        headers: {
-            "content-type": "application/json"
-          }
+      header: {'content-type': 'multipart/form-data'}
           
     }).then(res=>{
        this.setState({profileImage:res.data.image});
