@@ -23,6 +23,7 @@ const NavBar = ({ auth, logout }) => (
               <Nav.Link className="navbar-item" onClick={logout}>
                 Logout
               </Nav.Link>
+              <Nav.Link className="navbar-item" href="/admin">Admin</Nav.Link>
              
             </Nav>
         )}

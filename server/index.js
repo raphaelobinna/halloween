@@ -20,6 +20,7 @@ const port = process.env.PORT || 8080
 
 app.use('/api/auth', routes.auth);
 app.use('/api/poll', routes.poll);
+app.use('/api/admin', routes.admin)
 
 //app.use(notFound);
 

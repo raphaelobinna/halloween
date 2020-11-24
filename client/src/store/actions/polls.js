@@ -93,3 +93,22 @@ export const vote = (path, data) => {
         }
     }
 }
+
+export const deletePoll = (path) => {
+    return async dispatch => {
+        try {
+            const poll = await api.call('delete', `poll/${path}`);
+            if(poll){
+                console.log('delete is', poll)
+            dispatch(setCurrentPoll(poll));
+            dispatch(removeError());
+            }else {
+                alert('something went wrong')
+            }
+        } catch (err) {
+            const error = err.response.data;
+            dispatch(addError(error.message));
+        }
+    }
+    
+}

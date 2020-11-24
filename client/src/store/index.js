@@ -6,7 +6,7 @@ import rootReducer from './reducers';
 const DEFAULT_STATE = {
     error: {message: null}
 }
-
+//Chrome plugin can be commented out
 let devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 
 if (process.env.NODE_ENV === 'production') {

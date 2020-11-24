@@ -1,12 +1,13 @@
 .polls li {
+  margin-top: 30px;
   color: whitesmoke;
   padding: 0.5rem;
   text-align: center;
 }
 
-.polls li:nth-child(odd) {
+/* .polls li:nth-child(odd) {
   background-color: rgb(223, 175, 104);
-}
+} */
 
 .polls li:hover {
   border: 2px solid var(--blue);

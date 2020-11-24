@@ -2,24 +2,21 @@ const mongoose = require('mongoose');
 
 const optionSchema = new mongoose.Schema({
     option: String,
-    votes: {
-        type: Number,
-        default: 0
-    }
+    heroImage: String,
+
 });
 
-const pollSchema = new mongoose.Schema({
+
+const adminSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User'
     },
     options: [optionSchema],
-    voted: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
-    image: {type: String, required: true},
     created: {
         type: Date,
         default: Date.now
     },
 });
  
-module.exports = mongoose.model('Poll', pollSchema);
+module.exports = mongoose.model('Admin', adminSchema);

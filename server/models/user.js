@@ -17,7 +17,8 @@ const userSchema = new mongoose.Schema({
     },
    
     polls: [{type: mongoose.Schema.Types.ObjectId, ref: 'Poll'}],
-    image: [{type: mongoose.Schema.Types.String, ref: 'Images'}]
+    image: [{type: mongoose.Schema.Types.String, ref: 'Images'}],
+    admin: [{type: mongoose.Schema.Types.ObjectId, ref: 'Admin'}],
 });
 // hashing password
 userSchema.pre('save', async function (next) {

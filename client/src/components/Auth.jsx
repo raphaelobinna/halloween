@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+
 import { authUser, logout } from '../store/actions';
 
 class Auth extends Component {
@@ -25,6 +26,7 @@ class Auth extends Component {
     e.preventDefault();
     this.props.authUser(authType || 'login', { username, password });
   }
+
 
   render() {
     const { username, password } = this.state;
@@ -54,11 +56,9 @@ class Auth extends Component {
             autoComplete="off"
             className="form-input"
           />
-          <div className="buttons_center">
             <button className="button" type="submit">
               Submit
             </button>
-          </div>
         </form>
       </div>
     );

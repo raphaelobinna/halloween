@@ -24,80 +24,92 @@ const Poll = ({poll, vote}) => {
                 {option.option} 
         </button>
     ));
-        //voting configuration for deadpool
-        const V = poll.options &&  poll.options[0].votes
-        const totalVote = poll.options &&  poll.voted.length
-        const total = totalVote * V / 100
 
-         const now = (V / totalVote * 100).toFixed();
+    let test = poll.options;
 
-         const progressInstance = <ProgressBar animated now={now} label={`${now}%`} />;
+    const fish = (test) => {
+      if(!test){
+        return null;
+      }
+    
+      return test.map((item,key)=>{
 
-        // voting configuration for Hulk
-         const Vb = poll.options &&  poll.options[1].votes
-         const totalVoteb = poll.options &&  poll.voted.length
-         const totalb = totalVoteb * Vb / 100
- 
-          const nowb = ( Vb / totalVoteb * 100).toFixed();
- 
-          const progressInstanceb = <ProgressBar animated now={nowb} label={`${nowb}%`} />;
+        const V = item.votes
+        const totalVote = item &&  poll.voted.length
+        const now = (V / totalVote * 100).toFixed();
+        return (
+            <div key={item._id} >
+                <h4> {item.option} </h4>
+                <ProgressBar animated now={now} label={`${now}%`} />
+            </div>
+          
+        );
+      })
+    }
+    
+    console.log(fish(test));
 
-        // voting configuration for Doctor strange
-          const Vc = poll.options &&  poll.options[2].votes
-          const totalVotec = poll.options &&  poll.voted.length
-          const totalc = totalVotec * Vc / 100
-  
-           const nowc = ( Vc / totalVotec * 100).toFixed();
-  
-           const progressInstancec = <ProgressBar animated now={nowc} label={`${nowc}%`} />;
+if ( poll.options ) {
+    const pollImage = () => {
 
-        // voting configuration for iron man
-           const Vd = poll.options &&  poll.options[3].votes
-           const totalVoted = poll.options &&  poll.voted.length
-           const totald = totalVoted * Vd / 100
-         
-            const nowd = ( Vd / totalVoted * 100).toFixed();
-   
-            const progressInstanced = <ProgressBar animated now={nowd} label={`${nowd}%`} />;
+        let pollArray = poll.options
+        let fish = 0;
+        let cat;
+        for (const element of pollArray ) {
+        
+          if (element.votes > fish){
+            // console.log(element);
+            fish = element.votes;
+            cat = element.option;
+          }
+        }
+      
+        return cat;
+      }
+      
+      console.log('answer',pollImage())
 
-
+    } 
+        
             //picture display configuration
             let heroPic = DefaultUserPic;
            
-            if((total > totalb) || (total > totalc) || ( total > totald)){
-                heroPic = `${appURI}/uploads/DeadPool.JPG`
-            } 
-            if((totalb > total) || (totalb > totalc) || (totalb > totald)) {
-                heroPic = `${appURI}/uploads/Hulk.JPG`
-            }
-            if((totalc > total) || (totalc > totalb) || (totalc > totald)) {
-                heroPic = `${appURI}/uploads/strange.JPG`
-            } 
-            if((totald > total) || (totald > totalb) || (totald > totalc) ){
-                heroPic = `${appURI}/uploads/Iron.JPG`
-           }
+        //     if((total > totalb) || (total > totalc) || ( total > totald)){
+        //         heroPic = `${appURI}/uploads/DeadPool.JPG`
+        //     } 
+        //     if((totalb > total) || (totalb > totalc) || (totalb > totald)) {
+        //         heroPic = `${appURI}/uploads/Hulk.JPG`
+        //     }
+        //     if((totalc > total) || (totalc > totalb) || (totalc > totald)) {
+        //         heroPic = `${appURI}/uploads/strange.JPG`
+        //     } 
+        //     if((totald > total) || (totald > totalb) || (totald > totalc) ){
+        //         heroPic = `${appURI}/uploads/Iron.JPG`
+        //    }
          //user image logic
           var profilePic=`${appURI}/${poll.image}` ;
 
+         
 
     return <div>
-        <h3 className="poll-title" >{poll.question}</h3>
-        <div className="picture-container">
-        <div className="picture float-left" > 
-        <img  className="picture" src={profilePic} alt="profils pic" />
+        <div className="container mt-5" >
+            <div className="row" >
+                <div className="col" >
+                    <div className="d-flex justify-content-center">
+                <img  className="picture float mr-5" src={profilePic} alt="profils pic" />
+                <img  className="picture float right" src={heroPic} alt="profils pic" />
+                </div>
+                <div className="clearfix"></div>
+                </div>
+            </div>
         </div>
-        <div className="picture float float-right " > 
-        <img  className="picture" src={heroPic} alt="profils pic" />
-        </div>
-        </div>
-        <div class="clearfix"></div>
+        <div className="clearfix"></div>
         <div className="buttons_center" >{answers}</div>
         < div className="poll-box" >
-            <div > DeadPool {progressInstance} </div>
-            <div> Hulk {progressInstanceb}</div>
-            <div> Doctor Strange {progressInstancec}</div>
-            <div> Iron Man {progressInstanced}</div>      
+            <div> {fish(test)} </div>
         </div>
+
+      
       
     </div>
 

@@ -1,7 +1,7 @@
-.container {
+/* .container {
   margin: auto;
   width: 80%;
-}
+} */
 
 .picture-container {
   width: 60%;
@@ -9,6 +9,13 @@
   padding: 1rem;
   border-radius: 0.4rem;
 }
+
+/* .picture-container-polls {
+  width: 40%;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 0.4rem;
+} */
 
 @media (max-width: 360px) {
   .picture{
@@ -20,8 +27,14 @@
 }
 
 .picture{
+  width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.picture-polls{
   margin: auto;
-  width: 200px;
-    height: 200px;
+  width: 100px;
+    height: 100px;
     border-radius: 50%;
 }

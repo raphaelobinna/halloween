@@ -1,6 +1,8 @@
 const Polls = require('../models/poll');
 const User = require('../models/user');
 const Image = require('../models/image');
+const Admin = require('../models/admin');
+
 
 
 // show all the polls
@@ -36,7 +38,7 @@ exports.usersPolls = async (req, res, next) => {
 exports.saveImage = async (req, res, next) => {
     try {
 
-        console.log('req.file is ' + req.file)
+        console.log('req.file is ' + req.file.path)
         
         console.log(req.body, req.decoded)
 
@@ -69,18 +71,22 @@ exports.createPoll = async (req, res, next) => {
         //getting user from auth middleware
         console.log(req.decoded)
 
-        //console.log(req.file.path)
+        const adminOption = await Admin.find();
+        const arrayCheck = adminOption.map(admin => {
+            admin.options
+        })
+        console.log(arrayCheck)
+        console.log(adminOption[0].options)
 
         const { id } = req.decoded;
         const user = await User.findById(id)
 
         //const image = user.image[0]
 
-       
-
+        const options = adminOption[0].options
         // receiving form valuess
-        const {question, options} = req.body    
-        console.log(req.body)
+
+        console.log(options)
         
         const image = req.body.profileImage
 
@@ -90,11 +96,10 @@ exports.createPoll = async (req, res, next) => {
         
         //const pollImage = req.file.path
         const poll = await Polls.create({
-            question,
             user,
             image,
-            options: options.map(option => (
-                { option, votes: 0}
+            options: options.map(item => (
+                { option: item.option, votes: 0}
             ))
         });
         //making sure the new user holds property as the new poll that is been created
@@ -104,6 +109,7 @@ exports.createPoll = async (req, res, next) => {
         res.status(201).json({...poll._doc, user: user._id}) 
     } catch (err) {
         err.status = 400 
+        console.log(err)
         next(err);
     }
 };   
@@ -131,21 +137,22 @@ exports.getPoll = async (req, res, next) => {
 exports.deletePoll = async (req, res, next) => {
     try {
         const { id: pollId } = req.params
-        const { id: userId } = req.decoded
+        //const { id: userId } = req.decoded
 
         const poll = await Polls.findById(pollId)
 
         if(!poll) throw new Error('No poll found')
 
         //authenticating user ID
-        if(poll.user.toString() !== userId) {
-            throw new Error('Unauthorized access')
-        }
+        // if(poll.user.toString() !== userId) {
+        //     throw new Error('Unauthorized access')
+        // }  
         
         await poll.remove();
         res.status(202).json(poll)
     } catch (err) {
-        err.status = 400
+        err.status = 500
+        console.log(err)
         next(err);
     }
 };

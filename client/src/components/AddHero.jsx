@@ -18,18 +18,37 @@ let appURI = null
     }
 
 
-class CreatePoll extends Component {
+class AddHero extends Component {
   constructor(props) {
     super(props);
     this.state = {
       uploadedFile: '',
       submitted: false,
       profileImage: '',
+      options: [{option: '', heroImage: ''}, {ption: '', heroImage: ''}],
     };
 
+    this.handleChange = this.handleChange.bind(this);
+    this.addAnswer = this.addAnswer.bind(this);
+    this.handleAnswer = this.handleAnswer.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+
+  addAnswer() {
+    this.setState({ options: [...this.state.options, ''] });
+  }
+
+  handleAnswer(e, index) {
+    const options = [...this.state.options];
+    options[index] = e.target.value;
+    this.setState({ options });
+  }
 
   handleSubmit(e) {
     e.preventDefault();
@@ -46,12 +65,18 @@ class CreatePoll extends Component {
         const formData=new FormData();
     formData.append("pollImage",this.state.uploadedFile);
     //update-profile
-    axios.post(`${appURI}/api/poll/upload/`, formData ,{
+    axios.post(`${appURI}/api/admin/upload/`, formData ,{
       headers: {
         "content-type": "application/json"
       }
     }).then(res=>{
-       this.setState({profileImage:res.data.image});
+           this.state.options.map(options => (
+            options.heroImage 
+        ))
+            this.setState(
+                {heroImage : res.data.image}
+            );
+               
     })
 
 
@@ -61,18 +86,19 @@ class CreatePoll extends Component {
 
   render() {
 
-   // if(this.state.submitted) return <Redirect to="/"/>
-    
-    if(this.state.profileImage){
-      var imagestr=this.state.profileImage;
-      var profilePic=`${appURI}/${imagestr}`;
-  }else{
-       profilePic=DefaultUserPic;
-  }
-
-    return (
-      <form className="form" onSubmit={this.handleSubmit}>
-        <div className="picture" > 
+    if(this.state.submitted) return <Redirect to="/"/>
+    const options = this.state.options.map((options, i) => (
+      <Fragment key={i}>
+        <label className="form-label">option</label>
+        <input
+          className="form-input"
+          type="text"
+          value={options.option}
+          key={i}
+          onChange={e => this.handleAnswer(e, i)}
+          required
+        />
+         <div className="picture" > 
         <img  className="picture" src={profilePic} alt="profils pic" />
         </div>
         <div className="clearfix"></div>
@@ -87,9 +113,28 @@ class CreatePoll extends Component {
             this.setState({uploadedFile: e.target.files[0]}, () => {
               console.log('state', this.state);
             })
-            }}required />
+            }}
+            required />
             <Button variant="primary" onClick={this.UpdateProfileHandler}>Update Profile</Button>
+      </Fragment>
+    ));
+
+    if(this.state.profileImage){
+      var imagestr=this.state.profileImage;
+      var profilePic=`${appURI}/${imagestr}`;
+  }else{
+       profilePic=DefaultUserPic;
+  }
+
+    return (
+      <form className="form" onSubmit={this.handleSubmit}>
+       
+       
+        <div className="container">{options}</div>
         <div className="buttons_center">
+          <button className="button" type="button" onClick={this.addAnswer}>
+            Add options
+          </button>
           <button className="button" type="submit">
             Submit
           </button>
@@ -99,4 +144,4 @@ class CreatePoll extends Component {
   }
 }
 
-export default connect(() => ({}), { createPoll })(CreatePoll);
+export default connect(() => ({}), { createPoll })(AddHero);

@@ -2,6 +2,7 @@ const router = require('express').Router();
 const handle = require('../handlers');
 const auth = require('../middleware/auth');
 
+
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -30,18 +31,12 @@ const upload = multer({
         fileFilter: fileFilter
  })
 
-router.route('/')//show everything
-        .get(handle.showPolls)
-        .post(auth, handle.createPoll);
 
-router.route('/upload')
-        .post(auth, upload.single('pollImage'), handle.saveImage)
+ router.route('/')//show everything
+       // .get(handle.admin)
+         .post(auth, handle.createHero);
 
-router.get('/user', auth, handle.usersPolls)
- 
- router.route('/:id')
-        .get(handle.getPoll)
-        .post(auth, handle.vote)
-        .delete( handle.deletePoll)
+ router.route('/upload')
+         .post(auth, upload.single('pollImage'), handle.saveHeroImage)
 
-module.exports = router 
+ module.exports = router 

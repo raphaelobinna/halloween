@@ -8,7 +8,8 @@
 @import './styles/buttons.css';
 @import './styles/polls.css';
 @import './styles/form.css';
+@import './styles/admin.css';
 /*@import 'bootstrap/dist/css/bootstrap.min.css';*/
 body {
-    background-image: url(images/poll.JPG);
+  background-image: linear-gradient(to right,rgb(8, 8, 51) , rgb(197, 112, 32));
   }
